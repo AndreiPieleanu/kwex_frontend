@@ -1,0 +1,34 @@
+.NavbarAdmin {
+    background-color: #202123;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.NavbarAdmin ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.NavbarAdmin li {
+    margin-right: 2%;
+}
+
+.NavbarAdmin li:last-child {
+    margin-right: 0;
+}
+
+.NavbarAdmin a {
+    display: block;
+    padding: 10px;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.NavbarAdmin a:hover {
+    background-color: #3e92cc;
+}

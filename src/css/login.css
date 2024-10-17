@@ -1,0 +1,45 @@
+.login-parent {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 10px;
+    height: 100vh;
+    background-color: #333541;
+    align-items: center;
+  }
+  
+  .login-logo {
+    grid-area: 1 / 2 / 3 / 6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-title {
+    grid-area: 3 / 2 / 4 / 6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .login-title h1{
+    color: white;
+  }
+  
+  .login-tbx-username {
+    grid-area: 4 / 2 / 5 / 6;
+  }
+  .login-tbx-password {
+    grid-area: 5 / 2 / 6 / 6;
+  }
+  
+  .login-login {
+    grid-area: 6 / 2 / 7 / 6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .login-login button {
+    margin-top: 10px;
+  }
+  

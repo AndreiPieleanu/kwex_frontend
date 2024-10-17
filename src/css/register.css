@@ -1,0 +1,38 @@
+.register-parent {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.register-title {
+    grid-area: 1 / 2 / 2 / 4;
+}
+.register-title h1{
+    color: white;
+}
+
+.register-tbxFN {
+    grid-area: 2 / 2 / 3 / 3;
+}
+
+.register-tbxLN {
+    grid-area: 2 / 3 / 3 / 4;
+}
+
+.register-tbxEmail {
+    grid-area: 3 / 2 / 4 / 4;
+}
+
+.register-tbxPassword {
+    grid-area: 4 / 2 / 5 / 3;
+}
+
+.register-tbxRepeatPassword {
+    grid-area: 4 / 3 / 5 / 4;
+}
+
+.register-btnRegister {
+    grid-area: 5 / 2 / 6 / 4;
+}
