@@ -43,6 +43,7 @@ function UserHome(props) {
       setError('No token found. Please log in.');
       return;
     }
+    props.onUsernameInformed(userId);
     
     postCommands.getPostsOfUserWitId(userId, token)
       .then((fetchedPosts) => {
@@ -64,7 +65,7 @@ function UserHome(props) {
       <Box className="div1 search" sx={{ gridArea: '1 / 1 / 2 / 7' }}>
         <AppBar position="static">
           <Toolbar>
-            <NavbarClient />
+            <NavbarClient/>
           </Toolbar>
         </AppBar>
       </Box>
@@ -98,11 +99,11 @@ function UserHome(props) {
           <Tab label="Mentions" />
         </Tabs>
         <List>
-          {posts.map((post) => (
+          {posts.length > 0 && (posts.map((post) => (
             <ListItem key={post.id}>
               <ListItemText primary={post.text} secondary={post.timestamp} />
             </ListItem>
-          ))}
+          )))}
         </List>
       </Box>
 

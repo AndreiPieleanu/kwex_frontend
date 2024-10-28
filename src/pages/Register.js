@@ -1,5 +1,5 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { userCommands } from '../apis/user_apis.js';
 import '../css/register.css';
 import { Link } from 'react-router-dom';
@@ -12,6 +12,9 @@ function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
+    const [bio, setBio] = useState("");
+    const [location, setLocation] = useState("");
+    const [website, setWebsite] = useState("");
     const [passwordMatch, setPasswordMatch] = useState(true);
 
     const handlePasswordChange = (event) => {
@@ -31,19 +34,25 @@ function Register() {
             firstName: firstName,
             lastName: lastName,
             password: password,
+            bio: bio,
+            location: location,
+            website: website
         }
-        if (isFieldEmpty(newUser.email) || isFieldEmpty(newUser.firstName) || isFieldEmpty(newUser.lastName) || isFieldEmpty(newUser.password)) {
+        if (isFieldEmpty(newUser.email) || isFieldEmpty(newUser.firstName) || isFieldEmpty(newUser.lastName) || isFieldEmpty(newUser.password) || isFieldEmpty(newUser.bio) || isFieldEmpty(newUser.location) || isFieldEmpty(newUser.website)) {
             alert("Error! You have left some fields empty!");
         }
-        else if(password !== repeatPassword){
+        else if (password !== repeatPassword) {
             alert("Error! Password is not the same as the one in 'Repeat password' field!");
         }
-        else{
+        else {
             userCommands.createNewUser(
                 newUser.email,
                 newUser.firstName,
                 newUser.lastName,
-                newUser.password
+                newUser.password,
+                newUser.bio,
+                newUser.location,
+                newUser.website
             ).then(response => {
                 alert("response value: " + response);
                 navigate("/login");
@@ -57,13 +66,13 @@ function Register() {
         style: {
             color: "white",
         },
-    }
+    };
     const inputProps = {
         style: {
             color: "white",
             borderColor: "white",
         },
-    }
+    };
 
     return (
         <div className="register-parent">
@@ -132,6 +141,42 @@ function Register() {
                     inputProps={inputProps}
                 />
             </div>
+            <div className="register-tbxBio">
+                <TextField
+                    name="bio"
+                    label="Bio"
+                    fullWidth
+                    margin="normal"
+                    value={bio}
+                    onChange={(event) => setBio(event.target.value)}
+                    InputLabelProps={InputLabelProps}
+                    inputProps={inputProps}
+                />
+            </div>
+            <div className="register-tbxLocation">
+                <TextField
+                    name="location"
+                    label="Location"
+                    fullWidth
+                    margin="normal"
+                    value={location}
+                    onChange={(event) => setLocation(event.target.value)}
+                    InputLabelProps={InputLabelProps}
+                    inputProps={inputProps}
+                />
+            </div>
+            <div className="register-tbxWebsite">
+                <TextField
+                    name="website"
+                    label="Website"
+                    fullWidth
+                    margin="normal"
+                    value={website}
+                    onChange={(event) => setWebsite(event.target.value)}
+                    InputLabelProps={InputLabelProps}
+                    inputProps={inputProps}
+                />
+            </div>
             <div className="register-btnRegister">
                 <Button variant="contained" color="primary" type="submit" onClick={register}>
                     Register
@@ -142,4 +187,5 @@ function Register() {
         </div>
     );
 }
+
 export default Register;

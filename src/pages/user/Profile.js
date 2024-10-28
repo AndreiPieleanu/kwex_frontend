@@ -3,12 +3,14 @@ import { Box, Typography, Paper, Link, Avatar, List, ListItem, ListItemText } fr
 import NavbarClient from './Navbar.js';
 import { userCommands } from '../../apis/user_apis.js';
 import { postCommands } from '../../apis/post_api.js';
+import '../../css/user/profile.css';  // Imported CSS for styles
 
 function Profile(props) {
     const [user, setUser] = useState({});
-    const [posts, setPosts] = useState([]);  // Add state to store posts
-    const [postsCount, setPostsCount] = useState(0);
+    const [userPosts, setUserPosts] = useState([]);
     const [error, setError] = useState('');
+    const [followers, setFollowers] = useState([]);
+    const [following, setFollowings] = useState([]);
 
     useEffect(() => {
         const userId = localStorage.getItem('userId');
@@ -24,10 +26,21 @@ function Profile(props) {
         });
         postCommands.getPostsOfUserWitId(userId, token)
             .then((fetchedPosts) => {
-                setPosts(fetchedPosts);
-                setPostsCount(fetchedPosts.length);
+                setUserPosts(fetchedPosts);
             })
-            .catch((err) => setError(`Failed to fetch posts! Error: ${err}`));
+            .catch((err) => setError(`Failed to fetch user's posts! Error: ${err}`));
+
+        // followCommands.getFollowersOfUserWithId(userId, token)
+        //     .then((result) => {
+        //         setFollowers(result);
+        //     })
+        //     .catch((err) => setError(`Failed to fetch followers! Error: ${err}`));
+
+        // followCommands.getFollowingsOfUserWithId(userId, token)
+        //     .then((result) => {
+        //         setFollowings(result);
+        //     })
+        //     .catch((err) => setError(`Failed to fetch followings! Error: ${err}`));
     }, []);
 
     if (error) {
@@ -35,28 +48,27 @@ function Profile(props) {
     }
 
     return (
-        <Box className="parent" sx={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gridTemplateRows: 'repeat(10, 1fr)', gridGap: '10px' }}>
-
+        <Box className="parent">
             {/* Navbar */}
-            <Box className="div6" sx={{ gridArea: '1 / 1 / 2 / 7' }}>
+            <Box className="navbar">
                 <NavbarClient />
             </Box>
 
             {/* User Avatar and Basic Info */}
-            <Box className="div1" sx={{ gridArea: '2 / 1 / 4 / 4', padding: 2 }}>
-                <Paper elevation={3} sx={{ padding: 2 }}>
+            <Box className="avatar-box">
+                <Paper elevation={3}>
                     <Avatar sx={{ width: 80, height: 80, marginBottom: 2 }}>S0</Avatar>
                     <Typography variant="h6">{user.firstName}</Typography>
-                    <Typography variant="subtitle1">NYDN</Typography>
+                    <Typography variant="subtitle1">{user.lastName}</Typography>
                 </Paper>
             </Box>
 
             {/* User's Tweets */}
-            <Box className="div2" sx={{ gridArea: '4 / 1 / 6 / 4', padding: 2 }}>
-                <Paper elevation={3}sx={{ padding: 2, maxHeight: '50vh', overflowY: 'auto' }}>
+            <Box className="tweets-box">
+                <Paper elevation={3}>
                     <Typography variant="h6">Tweets</Typography>
                     <List>
-                        {posts.map((post) => (
+                        {userPosts.length > 0 && userPosts.map((post) => (
                             <ListItem key={post.id}>
                                 <ListItemText primary={post.text} secondary={post.createdAt} />
                             </ListItem>
@@ -66,43 +78,36 @@ function Profile(props) {
             </Box>
 
             {/* User's Details */}
-            <Box className="div3" sx={{ gridArea: '2 / 4 / 6 / 7', padding: 2 }}>
-                <Paper elevation={3} sx={{ padding: 2 }}>
-                    <Typography variant="body1">Full name: {user.firstName} {user.lastName}</Typography>
+            <Box className="details-box">
+                <Paper elevation={3}>
+                    <Typography variant="body1">Location: {user.location}</Typography>
+                    <Typography variant="body1">Web: {user.website}</Typography>
+                    <Typography variant="body1">Bio: {user.bio}</Typography>
                 </Paper>
             </Box>
 
-            {/* User's Stats */}
-            <Box className="div4" sx={{ gridArea: '3 / 4 / 10 / 7', padding: 2 }}>
-                <Paper elevation={3} sx={{ padding: 2 }}>
-                    <Typography><Link href="#">43 following</Link></Typography>
-                    <Typography><Link href="#">20 followers</Link></Typography>
-                    <Typography><Link href="#">tweets {postsCount}</Link></Typography>
+            {/* User's Stats (followers, following) */}
+            <Box className="stats-box">
+                <Paper elevation={3}>
+                    <Typography><Link href="#">Following: {following.length}</Link></Typography>
+                    <Typography><Link href="#">Followers: {followers.length}</Link></Typography>
+                    <Typography><Link href="#">Tweets: 123</Link></Typography>
                 </Paper>
             </Box>
 
             {/* Following List */}
-            <Box className="div5" sx={{ gridArea: '4 / 4 / 10 / 7', padding: 2 }}>
-                <Paper elevation={3} sx={{ padding: 2 }}>
+            <Box className="following-box">
+                <Paper elevation={3}>
                     <Typography variant="h6">Following:</Typography>
-                    <Typography>
-                        <Link href="#">U1</Link> <Link href="#">U2</Link> <Link href="#">U3</Link>
-                    </Typography>
-                    <Typography>
-                        <Link href="#">U4</Link> <Link href="#">U5</Link> <Link href="#">U6</Link>
-                    </Typography>
-                    <Typography>
-                        <Link href="#">U7</Link> <Link href="#">U8</Link> <Link href="#">U9</Link>
-                    </Typography>
-                    <Typography>
-                        <Link href="#">U10</Link> <Link href="#">U11</Link> <Link href="#">U12</Link>
-                    </Typography>
-                    <Typography>
-                        <Link href="#">U13</Link> <Link href="#">U14</Link> <Link href="#">U15</Link>
-                    </Typography>
+                    <List>
+                        {following.length > 0 && following.map((user) => (
+                            <ListItem key={user.id}>
+                                <Link href="#">{user.firstName} {user.lastName}</Link>
+                            </ListItem>
+                        ))}
+                    </List>
                 </Paper>
             </Box>
-
         </Box>
     );
 }

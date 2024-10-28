@@ -1,8 +1,8 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import '../../css/user/navbar.css';
 
 function NavbarClient() {
+
     const links = [
         {
             id: 1,
@@ -18,8 +18,13 @@ function NavbarClient() {
             id: 3,
             path: "/logout",
             text: "Logout"
+        },
+        {
+            id: 4,
+            path: "/notifications",
+            text: "Notifications"
         }
-    ]
+    ];
 
     return (
         <nav className="navbarClient">
@@ -31,7 +36,7 @@ function NavbarClient() {
                 ))}
             </ul>
         </nav>
-    )
+    );
 }
 
 export default NavbarClient;

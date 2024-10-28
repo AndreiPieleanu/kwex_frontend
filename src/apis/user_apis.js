@@ -3,12 +3,15 @@ import axios from "axios";
 const userURL = "http://localhost:8080/api/users";
 
 export const userCommands = {
-    createNewUser: (email, firstName, lastName, password) => axios.post(userURL, {
+    createNewUser: (email, firstName, lastName, password, bio, location, website) => axios.post(userURL, {
         "firstName": firstName, 
         "lastName": lastName, 
         "email": email, 
         "password": password, 
-        "role": "USER"
+        "role": "USER",
+        "bio": bio,
+        "location": location,
+        "website": website
     }).then(response => {
         console.log(response.data);
         return response.data.user

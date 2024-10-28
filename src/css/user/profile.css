@@ -1,33 +1,37 @@
 .parent {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(10, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-  }
-  
-  .div1 { grid-area: 2 / 1 / 5 / 4; padding: 10px; border: 1px solid black; }
-  .div2 { grid-area: 2 / 4 / 5 / 7; padding: 10px; border: 1px solid black; }
-  .div3 { grid-area: 5 / 1 / 11 / 4; padding: 10px; border: 1px solid black; }
-  .div4 { grid-area: 5 / 4 / 8 / 7; padding: 10px; border: 1px solid black; }
-  .div5 { grid-area: 8 / 4 / 11 / 7; padding: 10px; border: 1px solid black; }
-  .div6 { grid-area: 1 / 1 / 2 / 7; padding: 10px; display: flex; justify-content: space-between; }
-  
-  .profile, .details, .tweets, .stats, .following {
-    padding: 10px;
-  }
-  
-  .login-button {
-    align-self: center;
-    padding: 5px 10px;
-    background-color: lightgray;
-    border: none;
-    cursor: pointer;
-  }
-  
-  a {
-    text-decoration: none;
-    color: blue;
-    margin-right: 10px;
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  grid-gap: 10px;
+}
+
+.navbar {
+  grid-area: 1 / 1 / 2 / 7;
+}
+
+.avatar-box {
+  grid-area: 2 / 1 / 4 / 4;
+  padding: 10px;
+}
+
+.tweets-box {
+  grid-area: 4 / 1 / 6 / 4;
+  padding: 10px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.details-box {
+  grid-area: 2 / 4 / 6 / 7;
+  padding: 10px;
+}
+
+.stats-box {
+  grid-area: 3 / 4 / 10 / 7;
+  padding: 10px;
+}
+
+.following-box {
+  grid-area: 4 / 4 / 10 / 7;
+  padding: 10px;
+}

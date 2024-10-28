@@ -12,7 +12,10 @@ function EditUser() {
         email: '',
         role: '',
         password: '',
-        repeatPassword: ''
+        repeatPassword: '',
+        bio: '',
+        location: '',
+        website: ''
     });
     const [roles, setRoles] = useState([]); // To store the list of roles
     const [error, setError] = useState('');
@@ -61,7 +64,7 @@ function EditUser() {
         }
 
         const token = localStorage.getItem('token');
-        userCommands.updateUser(id, user.firstName, user.lastName, user.email, user.password, user.role, token)
+        userCommands.updateUser(id, user.firstName, user.lastName, user.email, user.password, user.role, user.bio, user.location, user.website, token)
             .then(() => {
                 alert('User updated successfully!');
                 navigate('/adminhome'); // Redirect after successful update
@@ -123,6 +126,31 @@ function EditUser() {
                         ))}
                     </Select>
                 </FormControl>
+                <TextField
+                    label="Bio"
+                    variant="outlined"
+                    className="form-control my-3"
+                    name="bio"
+                    value={user.bio}
+                    onChange={handleChange}
+                    required
+                />
+                <TextField
+                    label="Location"
+                    variant="outlined"
+                    className="form-control my-3"
+                    name="location"
+                    value={user.location}
+                    onChange={handleChange}
+                />
+                <TextField
+                    label="Website"
+                    variant="outlined"
+                    className="form-control my-3"
+                    name="website"
+                    value={user.website}
+                    onChange={handleChange}
+                />
                 <TextField
                     label="Password"
                     variant="outlined"

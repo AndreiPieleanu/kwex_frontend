@@ -1,7 +1,7 @@
 .register-parent {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: repeat(8, 1fr); /* Adjusted for new fields */
     grid-column-gap: 0px;
     grid-row-gap: 0px;
 }
@@ -9,7 +9,7 @@
 .register-title {
     grid-area: 1 / 2 / 2 / 4;
 }
-.register-title h1{
+.register-title h1 {
     color: white;
 }
 
@@ -33,6 +33,18 @@
     grid-area: 4 / 3 / 5 / 4;
 }
 
-.register-btnRegister {
+.register-tbxBio {
     grid-area: 5 / 2 / 6 / 4;
+}
+
+.register-tbxLocation {
+    grid-area: 6 / 2 / 7 / 4;
+}
+
+.register-tbxWebsite {
+    grid-area: 7 / 2 / 8 / 4;
+}
+
+.register-btnRegister {
+    grid-area: 8 / 2 / 9 / 4;
 }
