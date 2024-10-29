@@ -35,3 +35,9 @@
   grid-area: 4 / 4 / 10 / 7;
   padding: 10px;
 }
+
+.actions-box {
+  grid-area: 6 / 1 / 7 / 4;
+  padding: 10px;
+  text-align: center;
+}

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { userCommands } from '../apis/user_apis.js';
 import '../css/register.css';
 import { Link } from 'react-router-dom';
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, FormControlLabel, Checkbox } from '@mui/material';
 import isFieldEmpty from '../validations/textValidations';
 
 function Register() {
@@ -16,6 +16,7 @@ function Register() {
     const [location, setLocation] = useState("");
     const [website, setWebsite] = useState("");
     const [passwordMatch, setPasswordMatch] = useState(true);
+    const [consentGiven, setConsentGiven] = useState(false);
 
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
@@ -25,6 +26,10 @@ function Register() {
     const handleRepeatPasswordChange = (event) => {
         setRepeatPassword(event.target.value);
         setPasswordMatch(event.target.value === password);
+    };
+
+    const handleConsentChange = (event) => {
+        setConsentGiven(event.target.checked);
     };
 
     const navigate = useNavigate();
@@ -45,6 +50,10 @@ function Register() {
             alert("Error! Password is not the same as the one in 'Repeat password' field!");
         }
         else {
+            if (!consentGiven) {
+                alert("Please agree to the privacy policy and terms of service to proceed.");
+                return;
+            }
             userCommands.createNewUser(
                 newUser.email,
                 newUser.firstName,
@@ -175,6 +184,13 @@ function Register() {
                     onChange={(event) => setWebsite(event.target.value)}
                     InputLabelProps={InputLabelProps}
                     inputProps={inputProps}
+                />
+            </div>
+            {/* User Consent Checkbox */}
+            <div className="register-consent">
+                <FormControlLabel
+                    control={<Checkbox checked={consentGiven} onChange={handleConsentChange} color="primary" />}
+                    label={<span>I agree to the <Link to="/privacy-policy">Privacy Policy</Link> and <Link to="/terms-of-service">Terms of Service</Link></span>}
                 />
             </div>
             <div className="register-btnRegister">

@@ -1,9 +1,10 @@
 import { React, useEffect, useState } from 'react';
-import { Box, Typography, Paper, Link, Avatar, List, ListItem, ListItemText } from '@mui/material';
+import { Box, Typography, Paper, Link, Avatar, List, ListItem, ListItemText, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import NavbarClient from './Navbar.js';
 import { userCommands } from '../../apis/user_apis.js';
 import { postCommands } from '../../apis/post_api.js';
-import '../../css/user/profile.css';  // Imported CSS for styles
+import { useNavigate } from 'react-router-dom';
+import '../../css/user/profile.css';
 
 function Profile(props) {
     const [user, setUser] = useState({});
@@ -11,6 +12,8 @@ function Profile(props) {
     const [error, setError] = useState('');
     const [followers, setFollowers] = useState([]);
     const [following, setFollowings] = useState([]);
+    const [openDialog, setOpenDialog] = useState(false);  // State to manage delete confirmation dialog
+    const navigate = useNavigate();
 
     useEffect(() => {
         const userId = localStorage.getItem('userId');
@@ -29,19 +32,33 @@ function Profile(props) {
                 setUserPosts(fetchedPosts);
             })
             .catch((err) => setError(`Failed to fetch user's posts! Error: ${err}`));
-
-        // followCommands.getFollowersOfUserWithId(userId, token)
-        //     .then((result) => {
-        //         setFollowers(result);
-        //     })
-        //     .catch((err) => setError(`Failed to fetch followers! Error: ${err}`));
-
-        // followCommands.getFollowingsOfUserWithId(userId, token)
-        //     .then((result) => {
-        //         setFollowings(result);
-        //     })
-        //     .catch((err) => setError(`Failed to fetch followings! Error: ${err}`));
     }, []);
+
+    const handleDownloadData = () => {
+        const { password, ...userData } = user;
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(userData, null, 2));
+        const downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href", dataStr);
+        downloadAnchorNode.setAttribute("download", "user_data.json");
+        document.body.appendChild(downloadAnchorNode);
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+    };
+
+    const handleDeleteProfile = () => {
+        const userId = localStorage.getItem('userId');
+        const token = localStorage.getItem('token');
+        userCommands.deleteUser(userId, token)  // API call to delete the user's profile
+            .then(() => {
+                alert("Your profile has been deleted.");
+                localStorage.clear();  // Clear local storage and navigate to login
+                navigate('/login', { replace: true });
+            })
+            .catch((err) => alert(`Error deleting profile: ${err}`));
+    };
+
+    const openDeleteConfirmation = () => setOpenDialog(true);
+    const closeDeleteConfirmation = () => setOpenDialog(false);
 
     if (error) {
         return <Typography color="error">{error}</Typography>;
@@ -95,19 +112,29 @@ function Profile(props) {
                 </Paper>
             </Box>
 
-            {/* Following List */}
-            <Box className="following-box">
-                <Paper elevation={3}>
-                    <Typography variant="h6">Following:</Typography>
-                    <List>
-                        {following.length > 0 && following.map((user) => (
-                            <ListItem key={user.id}>
-                                <Link href="#">{user.firstName} {user.lastName}</Link>
-                            </ListItem>
-                        ))}
-                    </List>
-                </Paper>
+            {/* Download Data and Delete Profile Buttons */}
+            <Box className="actions-box">
+                <Button variant="contained" color="secondary" onClick={handleDownloadData}>
+                    Download My Data
+                </Button>
+                <Button variant="contained" color="error" onClick={openDeleteConfirmation} sx={{ marginTop: 1 }}>
+                    Delete My Profile
+                </Button>
             </Box>
+
+            {/* Delete Confirmation Dialog */}
+            <Dialog open={openDialog} onClose={closeDeleteConfirmation}>
+                <DialogTitle>Delete Profile</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Are you sure you want to delete your profile? This action cannot be undone, and all your data will be permanently removed.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={closeDeleteConfirmation} color="primary">Cancel</Button>
+                    <Button onClick={handleDeleteProfile} color="error">Confirm Delete</Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     );
 }

@@ -14,6 +14,8 @@ import { Client } from '@stomp/stompjs';
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Notifications from './pages/user/Notifications';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 
 function App() {
   const [stompClient, setStompClient] = useState();
@@ -100,6 +102,8 @@ function App() {
             <Route path='/adminhome/users/delete/:id' element={<DeleteUser />}/>
             <Route path='/userhome/profile' element={<Profile />}/>
             <Route path='/notifications' element={<Notifications username={username} onMessageSend={sendMessage} onMessageRemove={removeMessage} messagesReceived={messagesReceived}/>}/>
+            <Route path='/privacy-policy' element={<PrivacyPolicy />}/>
+            <Route path='/terms-of-service' element={<TermsOfService />}/>
           </Routes>
         </Router>
       </header>
