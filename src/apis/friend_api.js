@@ -1,13 +1,22 @@
 import axios from "axios";
 
-const friendURL = "http://localhost:8080/notifications";
+const friendURL = "http://localhost:8080/api/notifications";
 
 export const friendCommands = {
 
-    sendFriendRequest: (senderId, receiverId, text, token) => axios.post(`${friendURL}`, {
+    getAllFriendshipsOfUserWithId: (userId, token) => axios.get(`${friendURL}/friendships/${userId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }).then(response => {
+        return response.data
+    }).catch(error => error.response.data),
+
+    sendFriendRequest: (senderId, newMessage, token) => axios.post(`${friendURL}`, {
+        "id": newMessage.id,
         "from": senderId, 
-        "to": receiverId, 
-        "text": text
+        "to": newMessage.to, 
+        "text": newMessage.text
     }, {
         headers: {
             Authorization: `Bearer ${token}`

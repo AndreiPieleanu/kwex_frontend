@@ -12,7 +12,6 @@ import DeleteUser from './pages/admin/DeleteUser';
 import Profile from './pages/user/Profile';
 import { Client } from '@stomp/stompjs';
 import { useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import Notifications from './pages/user/Notifications';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
@@ -53,7 +52,7 @@ function App() {
   };
 
   const sendMessage = (newMessage) => {
-    const payload = { id: uuidv4(), from: username, to: newMessage.to, text: newMessage.text };
+    const payload = { id: newMessage.id, from: username, to: newMessage.to, text: newMessage.text };
 
     if (stompClient && stompClient.connected) {
       if (payload.to) {
