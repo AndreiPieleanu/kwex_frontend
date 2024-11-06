@@ -11,7 +11,7 @@ import ChangeUserRole from './pages/admin/ChangeUserRole';
 import DeleteUser from './pages/admin/DeleteUser';
 import Profile from './pages/user/Profile';
 import { Client } from '@stomp/stompjs';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Notifications from './pages/user/Notifications';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
@@ -21,13 +21,7 @@ function App() {
   const [username, setUsername] = useState();
   const [messagesReceived, setMessagesReceived] = useState([]);
 
-  useEffect(() => {
-    if (username) {
-      setupStompClient(username);
-    }
-  }, [username, setupStompClient]);
-
-  const setupStompClient = (username) => {
+  const setupStompClient = useCallback((username) => {
     if (stompClient) return;  // Ensure stompClient is only setup once
 
     const client = new Client({
@@ -49,7 +43,13 @@ function App() {
 
     client.activate();
     setStompClient(client);
-  };
+  }, [stompClient]);
+
+  useEffect(() => {
+    if (username) {
+      setupStompClient(username);
+    }
+  }, [username, setupStompClient]);
 
   const sendMessage = (newMessage) => {
     const payload = { id: newMessage.id, from: username, to: newMessage.to, text: newMessage.text };

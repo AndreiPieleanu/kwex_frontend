@@ -1,12 +1,12 @@
 import { React, useEffect, useState } from 'react';
-import { Box, Typography, Paper, Link, Avatar, List, ListItem, ListItemText, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Box, Typography, Paper, Avatar, List, ListItem, ListItemText, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import NavbarClient from './Navbar.js';
 import { userCommands } from '../../apis/user_apis.js';
 import { postCommands } from '../../apis/post_api.js';
 import { useNavigate } from 'react-router-dom';
 import '../../css/user/profile.css';
 
-function Profile(props) {
+function Profile() {
     const [user, setUser] = useState({});
     const [userPosts, setUserPosts] = useState([]);
     const [error, setError] = useState('');

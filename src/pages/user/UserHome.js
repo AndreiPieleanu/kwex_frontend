@@ -5,11 +5,12 @@ import '../../css/user/userHome.css';
 import { postCommands } from '../../apis/post_api.js';
 
 function UserHome(props) {
+  const { onUsernameInformed } = props; // Destructure props
   const [text, setText] = useState('');
-  const [posts, setPosts] = useState([]);  // Add state to store posts
+  const [posts, setPosts] = useState([]);
   const [postsCount, setPostsCount] = useState(0);
   const [error, setError] = useState('');
-  
+
   const saveText = (event) => {
     setText(event.target.value);
   };
@@ -18,8 +19,8 @@ function UserHome(props) {
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
     if (!token) {
-        setError('No token found. Please log in.');
-        return;
+      setError('No token found. Please log in.');
+      return;
     }
     postCommands.savePost(text, userId, token).then(() => {
       alert("Post added successfully!");
@@ -43,16 +44,15 @@ function UserHome(props) {
       setError('No token found. Please log in.');
       return;
     }
-    props.onUsernameInformed(userId);
-    
+    onUsernameInformed(userId); // Use destructured prop
+
     postCommands.getPostsOfUserWitId(userId, token)
       .then((fetchedPosts) => {
         setPosts(fetchedPosts);
         setPostsCount(fetchedPosts.length);
       })
       .catch((err) => setError(`Failed to fetch posts! Error: ${err}`));
-      
-  }, []);  // Run this effect on component mount
+  }, [onUsernameInformed]);
 
   if (error) {
     return <div className="alert alert-danger">{error}</div>;
