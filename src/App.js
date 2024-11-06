@@ -25,7 +25,7 @@ function App() {
     if (username) {
       setupStompClient(username);
     }
-  }, [username]);
+  }, [username, setupStompClient]);
 
   const setupStompClient = (username) => {
     if (stompClient) return;  // Ensure stompClient is only setup once

@@ -10,8 +10,8 @@ function Profile(props) {
     const [user, setUser] = useState({});
     const [userPosts, setUserPosts] = useState([]);
     const [error, setError] = useState('');
-    const [followers, setFollowers] = useState([]);
-    const [following, setFollowings] = useState([]);
+    // const [followers, setFollowers] = useState([]);
+    // const [following, setFollowings] = useState([]);
     const [openDialog, setOpenDialog] = useState(false);  // State to manage delete confirmation dialog
     const navigate = useNavigate();
 
@@ -104,13 +104,13 @@ function Profile(props) {
             </Box>
 
             {/* User's Stats (followers, following) */}
-            <Box className="stats-box">
+            {/* <Box className="stats-box">
                 <Paper elevation={3}>
                     <Typography><Link href="#">Following: {following.length}</Link></Typography>
                     <Typography><Link href="#">Followers: {followers.length}</Link></Typography>
                     <Typography><Link href="#">Tweets: 123</Link></Typography>
                 </Paper>
-            </Box>
+            </Box> */}
 
             {/* Download Data and Delete Profile Buttons */}
             <Box className="actions-box">
