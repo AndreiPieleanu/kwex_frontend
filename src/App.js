@@ -15,6 +15,8 @@ import { useEffect, useState, useCallback } from 'react';
 import Notifications from './pages/user/Notifications';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
+import EditUser from './pages/user/EditUser';
+import EditPost from './pages/user/EditPost';
 
 function App() {
   const [stompClient, setStompClient] = useState();
@@ -95,6 +97,8 @@ function App() {
             <Route path='/logout' element={<Logout />}></Route>
             <Route path='/userhome' element={<UserHome username={username} onUsernameInformed={onUsernameInformed} />}></Route>
             <Route path='/modhome' element={<ModHome />}></Route>
+            <Route path='/modhome/users/edit/:id' element={<EditUser/>}></Route>
+            <Route path='/userhome/posts/edit/:id' element={<EditPost/>}></Route>
             <Route path='/adminhome' element={<AdminHome />}></Route>
             <Route path='/register' element={<Register />}></Route>
             <Route path='/adminhome/users/edit/:id' element={<ChangeUserRole />}/>

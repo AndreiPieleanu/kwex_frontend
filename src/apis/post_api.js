@@ -48,4 +48,27 @@ export const postCommands = {
             Authorization: `Bearer ${token}`
         }
     }).then(response => response.data).catch(error => error.response.data),
+
+    deletePost: (postId, token) => axios.delete(`${postURL}/${postId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }).then(response => response.data).catch(error => error.response.data),
+
+    updatePost: (postId, request, token) => axios.put(`${postURL}/${postId}`, {
+        "id": request.id,
+        "text": request.text,
+        "userId": request.userId,
+        "isBlocked": request.isBlocked
+    }, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }).then(response => response.data).catch(error => error.response.data),
+
+    getPostById: (postId, token) => axios.get(`${postURL}/myposts/${postId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }).then(response => response.data).catch(error => error.response.data),
 };
