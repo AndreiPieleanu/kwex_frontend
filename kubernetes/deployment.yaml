@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kwex-frontend
+  labels:
+    app: kwex-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kwex-frontend
+  template:
+    metadata:
+      labels:
+        app: kwex-frontend
+    spec:
+      containers:
+        - name: kwex-frontend-container
+          image: trainingtexas/kwex-frontend:latest
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: "300Mi"
+              cpu: "200m"
+            requests:
+              memory: "128Mi"
+              cpu: "200m"
+
