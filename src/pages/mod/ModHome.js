@@ -45,7 +45,7 @@ function ModHome(props) {
             .catch(err => {
                 setError('Error fetching posts.');
             });
-    }, []);
+    }, [props.rolesAllowed]);
 
     const handleEdit = (userId) => {
         navigate(`users/edit/${userId}`);

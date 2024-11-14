@@ -35,7 +35,7 @@ function Profile(props) {
                 setUserPosts(fetchedPosts);
             })
             .catch((err) => setError(`Failed to fetch user's posts! Error: ${err}`));
-    }, []);
+    }, [props.rolesAllowed]);
 
     const handleDownloadData = () => {
         const { password, ...userData } = user;

@@ -84,7 +84,7 @@ function UserHome(props) {
       .catch((err) => setError(`Failed to fetch friendships! Error: ${err}`));
   };
 
-  useEffect(fetchPosts, [onUsernameInformed]);
+  useEffect(fetchPosts, [onUsernameInformed, props.rolesAllowed]);
 
   if (error) {
     return <div className="alert alert-danger">{error}</div>;

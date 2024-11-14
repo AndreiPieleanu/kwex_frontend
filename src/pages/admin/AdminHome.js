@@ -33,7 +33,7 @@ function AdminHome(props){
                 console.log(err);
                 setError('Error fetching users.');
             });
-    }, []);
+    }, [props.rolesAllowed]);
 
     const handleEdit = (userId) => {
         // Implement edit logic here

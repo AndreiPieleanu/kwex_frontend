@@ -48,7 +48,7 @@ function EditUser(props) {
                 setError('Error fetching roles.');
             });
 
-    }, [id]);
+    }, [id, props.rolesAllowed]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

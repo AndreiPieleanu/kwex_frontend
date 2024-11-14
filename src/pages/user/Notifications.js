@@ -47,7 +47,7 @@ export default function Notifications(props) {
             .catch((err) => {
                 setError(`Error fetching friendships: ${err}`);
             });
-    }, []);
+    }, [props.rolesAllowed]);
 
     // Handle sending friend request
     const handleFollow = (receiverId) => {

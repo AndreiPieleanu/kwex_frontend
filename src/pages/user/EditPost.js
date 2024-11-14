@@ -23,7 +23,7 @@ const EditPost = (props) => {
         setPostText(post.text);
         setPostIsBlocked(post.isBlocked);
     }).catch(err => setError(err));
-  }, [id]);
+  }, [id, props.rolesAllowed]);
 
   const handleSave = () => {
     const token = localStorage.getItem('token');

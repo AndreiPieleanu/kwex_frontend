@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Card, CardContent, Typography, Button } from '@mui/material';
+import { Container, Card, CardContent, Typography } from '@mui/material';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Unauthorized = () => {
