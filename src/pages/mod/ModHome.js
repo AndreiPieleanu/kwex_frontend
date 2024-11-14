@@ -5,8 +5,9 @@ import '../../css/admin/AdminHome.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router-dom";
 import NavbarAdmin from './Navbar.js';
+import { HelperFunctions } from '../../helpers/functions.js';
 
-function ModHome() {
+function ModHome(props) {
     let navigate = useNavigate();
     const [users, setUsers] = useState([]);
     const [posts, setPosts] = useState([]); // posts
@@ -15,6 +16,8 @@ function ModHome() {
     const loggedInEmail = localStorage.getItem('email');
 
     useEffect(() => {
+        const role = localStorage.getItem('role');
+        HelperFunctions.CheckIfRoleIsAllowed(role, props.rolesAllowed);
         const token = localStorage.getItem('token');
         if (!token) {
             setError('No token found. Please log in.');

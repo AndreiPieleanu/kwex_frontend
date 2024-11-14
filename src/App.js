@@ -18,6 +18,7 @@ import TermsOfService from './pages/TermsOfService';
 import EditUser from './pages/user/EditUser';
 import EditPost from './pages/user/EditPost';
 import { Roles } from './constants/roles';
+import Unauthorized from './pages/Unauthorized';
 
 function App() {
   const [stompClient, setStompClient] = useState();
@@ -97,17 +98,18 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path='/logout' element={<Logout />}></Route>
             <Route path='/userhome' element={<UserHome username={username} onUsernameInformed={onUsernameInformed} rolesAllowed={[Roles.USER]} />}></Route>
-            <Route path='/modhome' element={<ModHome roleAllowed={[Roles.MODERATOR]}/>}></Route>
+            <Route path='/modhome' element={<ModHome rolesAllowed={[Roles.MODERATOR]}/>}></Route>
             <Route path='/modhome/users/edit/:id' element={<EditUser rolesAllowed={[Roles.MODERATOR]}/>}></Route>
             <Route path='/userhome/posts/edit/:id' element={<EditPost rolesAllowed={[Roles.USER]}/>}></Route>
-            <Route path='/adminhome' element={<AdminHome roleAllowed={[Roles.ADMIN]}/>}></Route>
+            <Route path='/adminhome' element={<AdminHome rolesAllowed={[Roles.ADMIN]}/>}></Route>
             <Route path='/register' element={<Register />}></Route>
-            <Route path='/adminhome/users/edit/:id' element={<ChangeUserRole roleAllowed={[Roles.ADMIN]}/>}/>
-            <Route path='/adminhome/users/delete/:id' element={<DeleteUser roleAllowed={[Roles.ADMIN]}/>}/>
-            <Route path='/userhome/profile' element={<Profile roleAllowed={[Roles.USER]}/>}/>
-            <Route path='/notifications' element={<Notifications roleAllowed={[Roles.USER]} username={username} onMessageSend={sendMessage} onMessageRemove={removeMessage} messagesReceived={messagesReceived}/>}/>
+            <Route path='/adminhome/users/edit/:id' element={<ChangeUserRole rolesAllowed={[Roles.ADMIN]}/>}/>
+            <Route path='/adminhome/users/delete/:id' element={<DeleteUser rolesAllowed={[Roles.ADMIN]}/>}/>
+            <Route path='/userhome/profile' element={<Profile rolesAllowed={[Roles.USER]}/>}/>
+            <Route path='/notifications' element={<Notifications rolesAllowed={[Roles.USER]} username={username} onMessageSend={sendMessage} onMessageRemove={removeMessage} messagesReceived={messagesReceived}/>}/>
             <Route path='/privacy-policy' element={<PrivacyPolicy />}/>
             <Route path='/terms-of-service' element={<TermsOfService />}/>
+            <Route path='/unauthorized' element={<Unauthorized />}></Route>
           </Routes>
         </Router>
       </header>

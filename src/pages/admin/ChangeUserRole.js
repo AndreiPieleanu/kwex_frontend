@@ -4,7 +4,7 @@ import { Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material
 import { userCommands } from '../../apis/user_apis.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function ChangeUserRole() {
+function ChangeUserRole(props) {
     const { id } = useParams(); // Capture 'id' from the URL
     const [user, setUser] = useState({
         role: ''

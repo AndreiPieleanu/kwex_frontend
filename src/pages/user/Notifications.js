@@ -7,6 +7,7 @@ import { Card } from "react-bootstrap";
 import { userCommands } from "../../apis/user_apis";
 import { friendCommands } from "../../apis/friend_api";
 import { v4 as uuidv4 } from 'uuid';
+import { HelperFunctions } from "../../helpers/functions";
 
 export default function Notifications(props) {
     const [users, setUsers] = useState([]);
@@ -16,6 +17,8 @@ export default function Notifications(props) {
     const [selectedUser, setSelectedUser] = useState(null);
 
     useEffect(() => {
+        const role = localStorage.getItem('role');
+        HelperFunctions.CheckIfRoleIsAllowed(role, props.rolesAllowed);
         const token = localStorage.getItem('token');
         const userId = localStorage.getItem('userId');
         if (!token || !userId) {

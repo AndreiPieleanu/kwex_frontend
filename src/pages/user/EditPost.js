@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Box, TextField, Button, Typography } from '@mui/material';
 import { postCommands } from '../../apis/post_api';
+import { HelperFunctions } from '../../helpers/functions';
 
-const EditPost = () => {
+const EditPost = (props) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [postText, setPostText] = useState('');
@@ -11,6 +12,8 @@ const EditPost = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    const role = localStorage.getItem('role');
+    HelperFunctions.CheckIfRoleIsAllowed(role, props.rolesAllowed);
     const token = localStorage.getItem('token');
     if (!token) {
       setError('No token found. Please log in.');

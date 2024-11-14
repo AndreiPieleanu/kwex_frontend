@@ -1,5 +1,14 @@
+import { useNavigate } from "react-router-dom";
+let navigate = useNavigate();
 export const HelperFunctions = {
-    CheckRole: (currentRole, roleToCheck) => {
-        return currentRole === roleToCheck;
+    
+    CheckIfRoleIsAllowed: (currentRole, rolesToCheck) => {
+        if(!currentRole || !rolesToCheck){
+            return;
+        }
+        const roleFound = rolesToCheck.includes(currentRole);
+        if(!roleFound){
+            navigate('/unauthorized');
+        }
     }
 }

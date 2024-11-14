@@ -3,8 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { userCommands } from '../../apis/user_apis.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { HelperFunctions } from '../../helpers/functions.js';
 
-function EditUser() {
+function EditUser(props) {
     const { id } = useParams(); // Capture 'id' from the URL
     const [user, setUser] = useState({
         firstName: '',
@@ -23,6 +24,8 @@ function EditUser() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        const role = localStorage.getItem('role');
+        HelperFunctions.CheckIfRoleIsAllowed(role, props.rolesAllowed);
         const token = localStorage.getItem('token');
         if (!token) {
             setError('No token found. Please log in.');
