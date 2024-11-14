@@ -11,9 +11,7 @@ COPY package*.json ./
 RUN npm install --silent
 
 # add app
-COPY kubernetes ./kubernetes
-COPY src ./src
-COPY public ./public
+COPY . .
 RUN npm run build
 
 # Stage 2: Serve the built app using Nginx

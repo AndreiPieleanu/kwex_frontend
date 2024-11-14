@@ -17,6 +17,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import EditUser from './pages/user/EditUser';
 import EditPost from './pages/user/EditPost';
+import { Roles } from './constants/roles';
 
 function App() {
   const [stompClient, setStompClient] = useState();
@@ -95,16 +96,16 @@ function App() {
             <Route path="/" element={<Welcome />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path='/logout' element={<Logout />}></Route>
-            <Route path='/userhome' element={<UserHome username={username} onUsernameInformed={onUsernameInformed} />}></Route>
-            <Route path='/modhome' element={<ModHome />}></Route>
-            <Route path='/modhome/users/edit/:id' element={<EditUser/>}></Route>
-            <Route path='/userhome/posts/edit/:id' element={<EditPost/>}></Route>
-            <Route path='/adminhome' element={<AdminHome />}></Route>
+            <Route path='/userhome' element={<UserHome username={username} onUsernameInformed={onUsernameInformed} rolesAllowed={[Roles.USER]} />}></Route>
+            <Route path='/modhome' element={<ModHome roleAllowed={[Roles.MODERATOR]}/>}></Route>
+            <Route path='/modhome/users/edit/:id' element={<EditUser rolesAllowed={[Roles.MODERATOR]}/>}></Route>
+            <Route path='/userhome/posts/edit/:id' element={<EditPost rolesAllowed={[Roles.USER]}/>}></Route>
+            <Route path='/adminhome' element={<AdminHome roleAllowed={[Roles.ADMIN]}/>}></Route>
             <Route path='/register' element={<Register />}></Route>
-            <Route path='/adminhome/users/edit/:id' element={<ChangeUserRole />}/>
-            <Route path='/adminhome/users/delete/:id' element={<DeleteUser />}/>
-            <Route path='/userhome/profile' element={<Profile />}/>
-            <Route path='/notifications' element={<Notifications username={username} onMessageSend={sendMessage} onMessageRemove={removeMessage} messagesReceived={messagesReceived}/>}/>
+            <Route path='/adminhome/users/edit/:id' element={<ChangeUserRole roleAllowed={[Roles.ADMIN]}/>}/>
+            <Route path='/adminhome/users/delete/:id' element={<DeleteUser roleAllowed={[Roles.ADMIN]}/>}/>
+            <Route path='/userhome/profile' element={<Profile roleAllowed={[Roles.USER]}/>}/>
+            <Route path='/notifications' element={<Notifications roleAllowed={[Roles.USER]} username={username} onMessageSend={sendMessage} onMessageRemove={removeMessage} messagesReceived={messagesReceived}/>}/>
             <Route path='/privacy-policy' element={<PrivacyPolicy />}/>
             <Route path='/terms-of-service' element={<TermsOfService />}/>
           </Routes>
