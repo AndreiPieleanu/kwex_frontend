@@ -1,2 +1,2 @@
 export const OldHttpUrl = "localhost"
-export const KubernetesHttpUrl = "api-gateway"
+export const KubernetesHttpUrl = "api-gateway-container" 
