@@ -1,7 +1,8 @@
 import axios from "axios";
+import { KubernetesHttpUrl } from "../constants/urls";
 
-const postURL = "http://localhost:8080/api/posts";
-const moderatorURL = "http://localhost:8080/api/moderator/predict";
+const postURL = `http://${KubernetesHttpUrl}:8080/api/posts`;
+const moderatorURL = `http://${KubernetesHttpUrl}:8080/api/moderator/predict`;
 
 export const postCommands = {
     getFlaggedPosts: (token) => axios.get(`${postURL}`, {

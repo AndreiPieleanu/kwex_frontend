@@ -1,6 +1,7 @@
 import axios from "axios";
+import { KubernetesHttpUrl } from "../constants/urls";
 
-const friendURL = "http://localhost:8080/api/notifications";
+const friendURL = `http://${KubernetesHttpUrl}:8080/api/notifications`;
 
 export const friendCommands = {
 
