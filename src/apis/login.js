@@ -1,8 +1,8 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { KubernetesHttpUrl } from "../constants/urls";
+import { OldHttpUrl } from "../constants/urls";
 // until i fix error 400 bad request
-const LOGIN_BASE_URL = `http://${KubernetesHttpUrl}:8080/api/users/login`;
+const LOGIN_BASE_URL = `http://${OldHttpUrl}:8080/api/users/login`;
 
 export const LoginCommands = {
     Login: (email, password) => axios.post(LOGIN_BASE_URL, {"email": email, "password": password})

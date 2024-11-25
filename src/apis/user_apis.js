@@ -1,7 +1,7 @@
 import axios from "axios";
-import { KubernetesHttpUrl } from "../constants/urls";
+import { OldHttpUrl } from "../constants/urls";
 
-const userURL = `http://${KubernetesHttpUrl}:8080/api/users`;
+const userURL = `http://${OldHttpUrl}:8080/api/users`;
 
 export const userCommands = {
     createNewUser: (email, firstName, lastName, password, bio, location, website) => axios.post(userURL, {
