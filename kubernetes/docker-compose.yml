@@ -1,4 +1,7 @@
 version: "3.9"
+networks:
+  microservices_network: 
+    external: true
 services:
   frontend:
     build:
@@ -6,3 +9,5 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    networks:
+      - microservices_network
