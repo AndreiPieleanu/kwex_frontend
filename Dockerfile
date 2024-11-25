@@ -16,8 +16,8 @@ FROM nginx:alpine
 
 # Copy the build output to Nginx's default directory
 COPY --from=builder /app/build /usr/share/nginx/html
-# Expose port 3000
-EXPOSE 3000
+# Expose port 80
+EXPOSE 80
 
 # Start container
 CMD ["nginx", "-g", "daemon off;"]
