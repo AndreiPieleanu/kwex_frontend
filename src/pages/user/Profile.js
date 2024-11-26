@@ -5,9 +5,11 @@ import { userCommands } from '../../apis/user_apis.js';
 import { postCommands } from '../../apis/post_api.js';
 import { useNavigate } from 'react-router-dom';
 import '../../css/user/profile.css';
-import { HelperFunctions } from '../../helpers/functions.js';
+import { useHelperFunctions } from '../../helpers/functions.js';
 
 function Profile(props) {
+    const { CheckIfRoleIsAllowed } = useHelperFunctions();
+    const role = localStorage.getItem('role');
     const [user, setUser] = useState({});
     const [userPosts, setUserPosts] = useState([]);
     const [error, setError] = useState('');
@@ -17,8 +19,7 @@ function Profile(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const role = localStorage.getItem('role');
-        HelperFunctions.CheckIfRoleIsAllowed(role, props.rolesAllowed);
+        CheckIfRoleIsAllowed(role, props.rolesAllowed);
         const userId = localStorage.getItem('userId');
         const token = localStorage.getItem('token');
         if (!token) {
@@ -35,7 +36,7 @@ function Profile(props) {
                 setUserPosts(fetchedPosts);
             })
             .catch((err) => setError(`Failed to fetch user's posts! Error: ${err}`));
-    }, [props.rolesAllowed]);
+    }, [role, props.rolesAllowed, CheckIfRoleIsAllowed]);
 
     const handleDownloadData = () => {
         const { password, ...userData } = user;

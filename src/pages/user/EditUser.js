@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { userCommands } from '../../apis/user_apis.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { HelperFunctions } from '../../helpers/functions.js';
+import { useHelperFunctions } from '../../helpers/functions.js';
 
 function EditUser(props) {
     const { id } = useParams(); // Capture 'id' from the URL
@@ -22,10 +22,11 @@ function EditUser(props) {
     const [error, setError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const navigate = useNavigate();
+    const { CheckIfRoleIsAllowed } = useHelperFunctions();
+    const role = localStorage.getItem('role');
 
     useEffect(() => {
-        const role = localStorage.getItem('role');
-        HelperFunctions.CheckIfRoleIsAllowed(role, props.rolesAllowed);
+        CheckIfRoleIsAllowed(role, props.rolesAllowed);
         const token = localStorage.getItem('token');
         if (!token) {
             setError('No token found. Please log in.');
@@ -48,7 +49,7 @@ function EditUser(props) {
                 setError('Error fetching roles.');
             });
 
-    }, [id, props.rolesAllowed]);
+    }, [id, role, props.rolesAllowed, CheckIfRoleIsAllowed]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

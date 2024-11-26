@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { userCommands } from '../../apis/user_apis.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useHelperFunctions } from '../../helpers/functions.js';
 
 function ChangeUserRole(props) {
     const { id } = useParams(); // Capture 'id' from the URL
@@ -12,8 +13,11 @@ function ChangeUserRole(props) {
     const [roles, setRoles] = useState([]); // To store the list of roles
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const { CheckIfRoleIsAllowed } = useHelperFunctions();
+    const role = localStorage.getItem('role');
 
     useEffect(() => {
+        CheckIfRoleIsAllowed(role, props.rolesAllowed);
         const token = localStorage.getItem('token');
         if (!token) {
             setError('No token found. Please log in.');
@@ -36,7 +40,7 @@ function ChangeUserRole(props) {
                 setError('Error fetching roles.');
             });
 
-    }, [id]);
+    }, [id, role, CheckIfRoleIsAllowed, props.rolesAllowed]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

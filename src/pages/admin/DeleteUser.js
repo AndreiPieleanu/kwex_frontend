@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { userCommands } from '../../apis/user_apis.js'; // Assuming userCommands has the necessary API calls
-import { HelperFunctions } from '../../helpers/functions.js';
 
 function DeleteUser(props){
     const { id } = useParams(); // Assuming the user ID is passed in the URL
@@ -9,8 +8,6 @@ function DeleteUser(props){
     const [error, setError] = useState('');
 
     const handleDelete = () => {
-        const role = localStorage.getItem('role');
-        HelperFunctions.CheckIfRoleIsAllowed(role, props.rolesAllowed);
         const token = localStorage.getItem('token');
         if (!token) {
             setError('No token found. Please log in.');

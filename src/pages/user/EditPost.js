@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Box, TextField, Button, Typography } from '@mui/material';
 import { postCommands } from '../../apis/post_api';
-import { HelperFunctions } from '../../helpers/functions';
+import { useHelperFunctions } from '../../helpers/functions';
 
 const EditPost = (props) => {
   const { id } = useParams();
@@ -10,10 +10,11 @@ const EditPost = (props) => {
   const [postText, setPostText] = useState('');
   const [postIsBlocked, setPostIsBlocked] = useState(false);
   const [error, setError] = useState('');
+  const { CheckIfRoleIsAllowed } = useHelperFunctions();
+  const role = localStorage.getItem('role');
 
   useEffect(() => {
-    const role = localStorage.getItem('role');
-    HelperFunctions.CheckIfRoleIsAllowed(role, props.rolesAllowed);
+    CheckIfRoleIsAllowed(role, props.rolesAllowed);
     const token = localStorage.getItem('token');
     if (!token) {
       setError('No token found. Please log in.');
@@ -23,7 +24,7 @@ const EditPost = (props) => {
         setPostText(post.text);
         setPostIsBlocked(post.isBlocked);
     }).catch(err => setError(err));
-  }, [id, props.rolesAllowed]);
+  }, [id, role, props.rolesAllowed, CheckIfRoleIsAllowed]);
 
   const handleSave = () => {
     const token = localStorage.getItem('token');

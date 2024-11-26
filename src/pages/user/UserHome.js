@@ -6,10 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { friendCommands } from '../../apis/friend_api.js';
-import { HelperFunctions } from '../../helpers/functions.js';
+import { useHelperFunctions } from '../../helpers/functions.js';
 
 function UserHome(props) {
   const navigate = useNavigate();
+  const { CheckIfRoleIsAllowed } = useHelperFunctions();
+  const role = localStorage.getItem('role');
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedPostId, setSelectedPostId] = useState(null);
   const { onUsernameInformed } = props;
@@ -64,8 +66,7 @@ function UserHome(props) {
   const fetchPosts = () => {
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
-    const role = localStorage.getItem('role');
-    HelperFunctions.CheckIfRoleIsAllowed(role, props.rolesAllowed);
+    CheckIfRoleIsAllowed(role, props.rolesAllowed);
     if (!token) {
       setError('No token found. Please log in.');
       return;
@@ -84,7 +85,7 @@ function UserHome(props) {
       .catch((err) => setError(`Failed to fetch friendships! Error: ${err}`));
   };
 
-  useEffect(fetchPosts, [onUsernameInformed, props.rolesAllowed]);
+  useEffect(fetchPosts, [role, onUsernameInformed, props.rolesAllowed, CheckIfRoleIsAllowed]);
 
   if (error) {
     return <div className="alert alert-danger">{error}</div>;

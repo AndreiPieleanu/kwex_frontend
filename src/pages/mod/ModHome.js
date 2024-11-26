@@ -5,10 +5,12 @@ import '../../css/admin/AdminHome.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router-dom";
 import NavbarAdmin from './Navbar.js';
-import { HelperFunctions } from '../../helpers/functions.js';
+import { useHelperFunctions } from '../../helpers/functions.js';
 
 function ModHome(props) {
     let navigate = useNavigate();
+    const { CheckIfRoleIsAllowed } = useHelperFunctions();
+    const role = localStorage.getItem('role');
     const [users, setUsers] = useState([]);
     const [posts, setPosts] = useState([]); // posts
     const [error, setError] = useState('');
@@ -16,8 +18,7 @@ function ModHome(props) {
     const loggedInEmail = localStorage.getItem('email');
 
     useEffect(() => {
-        const role = localStorage.getItem('role');
-        HelperFunctions.CheckIfRoleIsAllowed(role, props.rolesAllowed);
+        CheckIfRoleIsAllowed(role, props.rolesAllowed);
         const token = localStorage.getItem('token');
         if (!token) {
             setError('No token found. Please log in.');
@@ -45,7 +46,7 @@ function ModHome(props) {
             .catch(err => {
                 setError('Error fetching posts.');
             });
-    }, [props.rolesAllowed]);
+    }, [role, props.rolesAllowed, CheckIfRoleIsAllowed]);
 
     const handleEdit = (userId) => {
         navigate(`users/edit/${userId}`);
