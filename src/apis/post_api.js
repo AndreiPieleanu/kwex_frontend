@@ -1,8 +1,8 @@
 import axios from "axios";
-import { OldHttpUrl } from "../constants/urls";
+import { OldLocalhostUrl } from "../constants/urls";
 
-const postURL = `http://${OldHttpUrl}:8080/api/posts`;
-const moderatorURL = `http://${OldHttpUrl}:8080/api/moderator/predict`;
+const postURL = `${OldLocalhostUrl}/api/posts`;
+const moderatorURL = `${OldLocalhostUrl}/api/moderator/predict`;
 
 export const postCommands = {
     getFlaggedPosts: (token) => axios.get(`${postURL}`, {

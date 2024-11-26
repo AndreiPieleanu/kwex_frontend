@@ -1,7 +1,7 @@
 import axios from "axios";
-import { OldHttpUrl } from "../constants/urls";
+import { OldLocalhostUrl } from "../constants/urls";
 
-const friendURL = `http://${OldHttpUrl}:8080/api/notifications`;
+const friendURL = `${OldLocalhostUrl}/api/notifications`;
 
 export const friendCommands = {
 

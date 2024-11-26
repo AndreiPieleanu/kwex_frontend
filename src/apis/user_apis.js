@@ -1,7 +1,7 @@
 import axios from "axios";
-import { OldHttpUrl } from "../constants/urls";
+import { OldLocalhostUrl } from "../constants/urls";
 
-const userURL = `http://${OldHttpUrl}:8080/api/users`;
+const userURL = `${OldLocalhostUrl}/api/users`;
 
 export const userCommands = {
     createNewUser: (email, firstName, lastName, password, bio, location, website) => axios.post(userURL, {
