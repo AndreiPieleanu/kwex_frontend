@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - image: trainingtexas/kwex-frontend:latest
-          name: kwex-frontend-container
+          name: frontend
           ports:
             - containerPort: 80
               protocol: TCP
