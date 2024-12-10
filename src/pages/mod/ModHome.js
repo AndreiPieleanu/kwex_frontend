@@ -90,6 +90,10 @@ function ModHome(props) {
             setError('No token found. Please log in.');
             return;
         }
+        if (!Array.isArray(posts)) {
+            setError('Posts is not an array.');
+            return;
+        }
         // Create an array of promises from the asynchronous operations
         const promises = posts.map((post) => 
             postCommands.checkIfPostIsOffensive(post, token).then(response => {
@@ -97,17 +101,20 @@ function ModHome(props) {
                     flagged.push(post); // Add post to flagged if the response is true
                 }
             }).catch(err => {
-                setError(`Error with AI model for post ${post.id}.`);
+                console.error(`Error with AI model for post ${post.id}:`, err);
+                setError(`Error with AI model for post ${post.id}:${err}`);
             })
         );
     
         // Wait for all the promises to complete
         Promise.all(promises).then(() => {
-            console.log(`flagged: ${flagged}`); // This will now show the correct flagged posts
-            setPosts(flagged); // Update the state with flagged posts
-            setShowFlagged(true);  // Show flagged posts
-        }).catch((err) => {
+            console.log('Flagged posts:', flagged);
+            setPosts(flagged);
+            setShowFlagged(true);
+        })
+        .catch((err) => {
             console.log('Error processing posts:', err);
+            setError('Error processing posts.');
         });
     };
 
@@ -186,24 +193,8 @@ function ModHome(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {showFlagged ? (
-                        posts.length > 0 ? (
-                            posts.map((post) => (
-                                <tr key={post.id}>
-                                    <td>{post.id}</td>
-                                    <td>{post.text}</td>
-                                    <td>{post.isBlocked ? "Blocked" : "Not blocked"}</td>
-                                    <td>
-                                        <button className="btn btn-danger" onClick={() => handleBlockPost(post)}>Block</button>
-                                    </td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan="3">No offensive posts found.</td>
-                            </tr>
-                        )
-                    ) : (
+                {showFlagged ? (
+                    Array.isArray(posts) && posts.length > 0 ? (
                         posts.map((post) => (
                             <tr key={post.id}>
                                 <td>{post.id}</td>
@@ -214,7 +205,29 @@ function ModHome(props) {
                                 </td>
                             </tr>
                         ))
-                    )}
+                    ) : (
+                        <tr>
+                            <td colSpan="4">No offensive posts found.</td>
+                        </tr>
+                    )
+                ) : (
+                    Array.isArray(posts) ? (
+                        posts.map((post) => (
+                            <tr key={post.id}>
+                                <td>{post.id}</td>
+                                <td>{post.text}</td>
+                                <td>{post.isBlocked ? "Blocked" : "Not blocked"}</td>
+                                <td>
+                                    <button className="btn btn-danger" onClick={() => handleBlockPost(post)}>Block</button>
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan="4">Error: Posts is not a valid array.</td>
+                        </tr>
+                    )
+                )}
                 </tbody>
             </table>
         </div>
