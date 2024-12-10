@@ -100,6 +100,7 @@ function App() {
             <Route path='/userhome' element={<UserHome username={username} onUsernameInformed={onUsernameInformed} rolesAllowed={[Roles.USER]} />}></Route>
             <Route path='/modhome' element={<ModHome rolesAllowed={[Roles.MODERATOR]}/>}></Route>
             <Route path='/modhome/users/edit/:id' element={<EditUser rolesAllowed={[Roles.MODERATOR]}/>}></Route>
+            <Route path='/modhome/users/delete/:id' element={<DeleteUser rolesAllowed={[Roles.MODERATOR]}/>}/>
             <Route path='/userhome/posts/edit/:id' element={<EditPost rolesAllowed={[Roles.USER]}/>}></Route>
             <Route path='/adminhome' element={<AdminHome rolesAllowed={[Roles.ADMIN]}/>}></Route>
             <Route path='/register' element={<Register />}></Route>
