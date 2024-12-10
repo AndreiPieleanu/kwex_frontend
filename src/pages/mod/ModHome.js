@@ -58,7 +58,11 @@ function ModHome(props) {
 
     const handleRoleChange = (userId, newRole) => {
         const token = localStorage.getItem('token');
-        userCommands.updateUserRole(userId, newRole, token)
+        if (!token) {
+            setError('No token found. Please log in.');
+            return;
+        }
+        userCommands.changeRole(userId, token, newRole)
             .then(() => {
                 alert(`User role updated to ${newRole}`);
                 setUsers(users.map(user => user.id === userId ? { ...user, role: newRole } : user));
