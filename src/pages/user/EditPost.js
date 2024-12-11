@@ -47,7 +47,7 @@ const EditPost = (props) => {
     
   };
   const saveText = (event) => {
-    setEmail(event.target.value);
+    setPostText(event.target.value);
   };
   
   if (error) {
