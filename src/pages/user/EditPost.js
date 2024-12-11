@@ -46,6 +46,9 @@ const EditPost = (props) => {
     .catch(err => setError(err));
     
   };
+  const saveText = (event) => {
+    setEmail(event.target.value);
+  };
   
   if (error) {
     return <div className="alert alert-danger">{error}</div>;
@@ -58,8 +61,8 @@ const EditPost = (props) => {
         label="Post Text"
         fullWidth
         margin="normal"
-        value={postText}
-        onChange={(e) => setPostText(e.target.value)}
+        defaultValue={postText}
+        onChange={saveText}
       />
       <Button variant="contained" color="primary" onClick={handleSave}>
         Save Changes
