@@ -91,7 +91,7 @@ function EditUser(props) {
                     variant="outlined"
                     className="form-control my-3"
                     name="firstName"
-                    value={user.firstName}
+                    defaultValue={user.firstName}
                     onChange={handleChange}
                     required
                 />
@@ -100,7 +100,7 @@ function EditUser(props) {
                     variant="outlined"
                     className="form-control my-3"
                     name="lastName"
-                    value={user.lastName}
+                    defaultValue={user.lastName}
                     onChange={handleChange}
                     required
                 />
@@ -110,7 +110,7 @@ function EditUser(props) {
                     className="form-control my-3"
                     name="email"
                     type="email"
-                    value={user.email}
+                    defaultValue={user.email}
                     onChange={handleChange}
                     required
                 />
@@ -135,7 +135,7 @@ function EditUser(props) {
                     variant="outlined"
                     className="form-control my-3"
                     name="bio"
-                    value={user.bio}
+                    defaultValue={user.bio}
                     onChange={handleChange}
                     required
                 />
@@ -144,7 +144,7 @@ function EditUser(props) {
                     variant="outlined"
                     className="form-control my-3"
                     name="location"
-                    value={user.location}
+                    defaultValue={user.location}
                     onChange={handleChange}
                 />
                 <TextField
@@ -152,7 +152,7 @@ function EditUser(props) {
                     variant="outlined"
                     className="form-control my-3"
                     name="website"
-                    value={user.website}
+                    defaultValue={user.website}
                     onChange={handleChange}
                 />
                 <TextField
@@ -161,7 +161,7 @@ function EditUser(props) {
                     className="form-control my-3"
                     name="password"
                     type="password"
-                    value={user.password}
+                    defaultValue={user.password}
                     onChange={handleChange}
                 />
                 <TextField
@@ -170,7 +170,7 @@ function EditUser(props) {
                     className="form-control my-3"
                     name="repeatPassword"
                     type="password"
-                    value={user.repeatPassword}
+                    defaultValue={user.repeatPassword}
                     onChange={handleChange}
                 />
                 {passwordError && <div className="alert alert-danger">{passwordError}</div>}
